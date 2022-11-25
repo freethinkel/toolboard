@@ -2,11 +2,14 @@ import Cocoa
 import FlutterMacOS
 
 class MainFlutterWindow: NSWindow {
+    
   override func awakeFromNib() {
-    let flutterViewController = CustomWindow.init()
-    let windowFrame = self.frame
+    let flutterViewController = CustomWindow.init();
+    flutterViewController.setKey(key: "overlay")
     self.contentViewController = flutterViewController
-    self.setFrame(windowFrame, display: true)
+    let screenSize = NSScreen.main?.frame.size ?? CGSize(width: 800, height: 600)
+    let frame = NSRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height)
+    self.setFrame(frame, display: true)
     
     self.isOpaque = true;
     self.styleMask = .borderless
@@ -18,11 +21,7 @@ class MainFlutterWindow: NSWindow {
     self.ignoresMouseEvents = true
     self.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
 
-    let channel = FlutterMethodChannel(name: "ru.freethinkel.toolboard/mindow",
-                                              binaryMessenger: flutterViewController.engine.binaryMessenger)
-
     RegisterGeneratedPlugins(registry: flutterViewController)
-
     super.awakeFromNib()
   }
 }

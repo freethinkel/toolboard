@@ -1,25 +1,43 @@
 {
-  // Используйте IntelliSense, чтобы узнать о возможных атрибутах.
-  // Наведите указатель мыши, чтобы просмотреть описания существующих атрибутов.
-  // Для получения дополнительной информации посетите: https://go.microsoft.com/fwlink/?linkid=830387
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "toolboard",
-      "request": "launch",
-      "type": "dart"
-    },
-    {
-      "name": "toolboard (profile mode)",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "profile"
-    },
-    {
-      "name": "toolboard (release mode)",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "release"
-    }
-  ]
+	// Используйте IntelliSense, чтобы узнать о возможных атрибутах.
+	// Наведите указатель мыши, чтобы просмотреть описания существующих атрибутов.
+	// Для получения дополнительной информации посетите: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "toolboard",
+			"request": "launch",
+			"type": "dart"
+		},
+		{
+			"name": "toolboard (profile mode)",
+			"request": "launch",
+			"type": "dart",
+			"flutterMode": "profile"
+		},
+		{
+			"name": "toolboard (release mode)",
+			"request": "launch",
+			"type": "dart",
+			"flutterMode": "release"
+		},
+		{
+			"type": "lldb",
+			"request": "launch",
+			"name": "Debug SwindlerExample (build/macos/SourcePackages/checkouts/Swindler)",
+			"program": "${workspaceFolder:toolboard}/build/macos/SourcePackages/checkouts/Swindler/.build/debug/SwindlerExample",
+			"args": [],
+			"cwd": "${workspaceFolder:toolboard}/build/macos/SourcePackages/checkouts/Swindler",
+			"preLaunchTask": "swift: Build Debug SwindlerExample (build/macos/SourcePackages/checkouts/Swindler)"
+		},
+		{
+			"type": "lldb",
+			"request": "launch",
+			"name": "Release SwindlerExample (build/macos/SourcePackages/checkouts/Swindler)",
+			"program": "${workspaceFolder:toolboard}/build/macos/SourcePackages/checkouts/Swindler/.build/release/SwindlerExample",
+			"args": [],
+			"cwd": "${workspaceFolder:toolboard}/build/macos/SourcePackages/checkouts/Swindler",
+			"preLaunchTask": "swift: Build Release SwindlerExample (build/macos/SourcePackages/checkouts/Swindler)"
+		}
+	]
 }
