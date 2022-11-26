@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:toolboard/channel/channel.dart';
 import 'package:toolboard/statusbar/main.dart';
 
-import 'overlay/main.dart';
+import 'overlay/overlay_app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

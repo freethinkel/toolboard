@@ -39,6 +39,7 @@
 		C6441E1C292FCE96005726E9 /* CFExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6441E1B292FCE96005726E9 /* CFExtension.swift */; };
 		C69F8201292B4D34003ED9AB /* CustomWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69F8200292B4D34003ED9AB /* CustomWindow.swift */; };
 		C6A298D9292CF89F000CF278 /* MessageChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A298D8292CF89F000CF278 /* MessageChannel.swift */; };
+		C6C92E302930C1EA00771FB1 /* WindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C92E2F2930C1EA00771FB1 /* WindowManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +99,7 @@
 		C69F8200292B4D34003ED9AB /* CustomWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWindow.swift; sourceTree = "<group>"; };
 		C6A298D3292CE6F3000CF278 /* RunnerProfile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RunnerProfile.entitlements; sourceTree = "<group>"; };
 		C6A298D8292CF89F000CF278 /* MessageChannel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageChannel.swift; sourceTree = "<group>"; };
+		C6C92E2F2930C1EA00771FB1 /* WindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +204,7 @@
 				C6049F8B292FCA470041F46A /* AccessibilityElement.swift */,
 				C6049F8D292FCA9A0041F46A /* AXExtension.swift */,
 				C6049F90292FCC820041F46A /* Config.swift */,
+				C6C92E2F2930C1EA00771FB1 /* WindowManager.swift */,
 			);
 			path = WindowManager;
 			sourceTree = "<group>";
@@ -401,6 +404,7 @@
 				335BBD1B22A9A15E00E9071D /* GeneratedPluginRegistrant.swift in Sources */,
 				C6049F8E292FCA9A0041F46A /* AXExtension.swift in Sources */,
 				C6362514292FBDAC00F64FEC /* RunLoop.swift in Sources */,
+				C6C92E302930C1EA00771FB1 /* WindowManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

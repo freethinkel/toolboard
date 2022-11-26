@@ -8,7 +8,6 @@ class MessageChannel {
   var controller: CustomWindow?
     
   init(controller: FlutterViewController?) {
-//    self.windowManager = windowManager;
     self.controller = controller as! CustomWindow?;
     self.channel = FlutterMethodChannel(name: "ru.freethinkel.toolboard/mindow",
                                           binaryMessenger: self.controller!.engine.binaryMessenger);
@@ -16,7 +15,6 @@ class MessageChannel {
   }
 
   func sendEvent(key: String, payload: String) {
-    // NSLog("msg event: key \(key) ... \(payload)")
     self.channel!.invokeMethod(key, arguments: payload)
   }
 
