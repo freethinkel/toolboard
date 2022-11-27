@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toolboard/channel/channel.dart';
-import 'package:toolboard/statusbar/main.dart';
+import 'package:toolboard/statusbar/statusbar_app.dart';
 
 import 'overlay/overlay_app.dart';
 

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:toolboard/overlay/window_manager.dart';
 
 class AppChannel {
   final _channelName = 'ru.freethinkel.toolboard/mindow';
@@ -16,6 +17,24 @@ class AppChannel {
           .map<Map>((item) => jsonDecode(item))
           .toList();
     });
+  }
+
+  Future setCurrentWindowFrame(RectData rect) {
+    return channel.invokeMethod(
+      "set_current_window_frame",
+      jsonEncode(
+        rect.toMap(),
+      ),
+    );
+  }
+
+  Future setWindowFrame(int windowId, RectData rect) {
+    return channel.invokeMethod(
+        "set_window_frame",
+        jsonEncode({
+          'id': windowId,
+          ...rect.toMap(),
+        }));
   }
 
   listen(Function(String, dynamic) cb) {

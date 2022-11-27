@@ -137,10 +137,13 @@ class _GridManagerState extends State<GridManager> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        if (currentArea != null) rectPosition[currentArea],
-      ],
+    return Container(
+      // decoration: BoxDecoration(border: Border.all(color: Colors.red)),
+      child: Stack(
+        children: [
+          if (currentArea != null) rectPosition[currentArea],
+        ],
+      ),
     );
   }
 }

@@ -1,3 +1,4 @@
+import Foundation
 import Cocoa
 import FlutterMacOS
 
@@ -23,7 +24,7 @@ class AppDelegate: FlutterAppDelegate {
     self.controller = CustomWindow.init(project: project);
     (self.controller as! CustomWindow).setKey(key: "statusbar");
     self.channels.append(MessageChannel.init(controller: controller))
-    self.channels.append(MessageChannel.init(controller: mainFlutterWindow?.contentViewController as! FlutterViewController?))
+    self.channels.append(MessageChannel.init(controller: mainFlutterWindow?.contentViewController as! FlutterViewController?, window: self.mainFlutterWindow))
     popover.contentSize = NSSize(width: 360, height: 360)
     popover.contentViewController = self.controller
     statusBar = StatusBarController.init(popover)

@@ -1,10 +1,3 @@
-//
-//  AccessibilityElement.swift
-//  Rectangle, Ported from Spectacle, Combined with snippets from ModMove
-//
-//  Created by Ryan Hanson on 6/12/19.
-//  Copyright © 2019 Ryan Hanson. All rights reserved.
-//
 import Foundation
 import Cocoa
 
@@ -76,7 +69,6 @@ class AccessibilityElement {
         set {
             guard let newValue = newValue else { return }
             wrappedElement.setValue(.position, newValue)
-//            Logger.log("AX position proposed: \(newValue.debugDescription), result: \(position?.debugDescription ?? "N/A")")
         }
     }
     
@@ -84,7 +76,6 @@ class AccessibilityElement {
         if let isResizable = wrappedElement.isValueSettable(.size) {
             return isResizable
         }
-//        Logger.log("Unable to determine if window is resizeable. Assuming it is.")
         return true
     }
     
@@ -95,7 +86,6 @@ class AccessibilityElement {
         set {
             guard let newValue = newValue else { return }
             wrappedElement.setValue(.size, newValue)
-//            Logger.log("AX sizing proposed: \(newValue.debugDescription), result: \(size?.debugDescription ?? "N/A")")
         }
     }
     
@@ -111,7 +101,6 @@ class AccessibilityElement {
         if let appElement = appElement {
             enhancedUI = appElement.enhancedUserInterface
             if enhancedUI == true {
-//                Logger.log("AXEnhancedUserInterface was enabled, will disable before resizing")
                 appElement.enhancedUserInterface = false
             }
         }
@@ -142,7 +131,6 @@ class AccessibilityElement {
             return windowId
         }
         let frame = frame
-        // Take the first match because there's no real way to guarantee which window we're actually getting
         if let pid = pid, let info = (WindowUtil.getWindowList().first { $0.pid == pid && $0.frame == frame }) {
             return info.id
         }
@@ -205,7 +193,6 @@ class AccessibilityElement {
         }
     }
     
-    // Only for Stage Manager
     var windowIds: [CGWindowID]? {
         wrappedElement.getValue(.windowIds) as? [CGWindowID]
     }
@@ -228,7 +215,6 @@ extension AccessibilityElement {
     
     static func getFrontWindowElement() -> AccessibilityElement? {
         guard let appElement = getFrontApplicationElement() else {
-//            Logger.log("Failed to find the application that currently has focus.")
             return nil
         }
         if let focusedWindowElement = appElement.focusedWindowElement {
@@ -237,7 +223,6 @@ extension AccessibilityElement {
         if let firstWindowElement = appElement.windowElements?.first {
             return firstWindowElement
         }
-//        Logger.log("Failed to find frontmost window.")
         return nil
     }
     
@@ -246,7 +231,6 @@ extension AccessibilityElement {
         if let info = (infos.first { $0.frame.contains(location) }) {
             return info
         }
-//        Logger.log("Unable to obtain window info from location")
         return nil
     }
 
@@ -255,13 +239,6 @@ extension AccessibilityElement {
         if let element = AccessibilityElement(position), let windowElement = element.windowElement {
             return windowElement
         }
-//        if !Defaults.dragFromStage.userDisabled && StageUtil.stageCapable && StageUtil.stageEnabled && StageUtil.isStageStripVisible() {
-//            if let group = (StageUtil.getStageStripGroups().first { $0.frame.contains(position) }),
-//               let windowId = group.windowIds.first,
-//               let element = StageWindowAccessibilityElement(windowId) {
-//                return element
-//            }
-//        }
         if let info = getWindowInfo(position), let windowElements = AccessibilityElement(info.pid).windowElements {
             if let windowElement = (windowElements.first { $0.windowId == info.id }) {
                 
@@ -272,7 +249,6 @@ extension AccessibilityElement {
                 return windowElement
             }
         }
-//        Logger.log("Unable to obtain the accessibility element with the specified attribute at mouse location")
         return nil
     }
     

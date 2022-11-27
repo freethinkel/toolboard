@@ -1,7 +1,7 @@
 import Foundation
 import Cocoa
 
-class WindowManager {
+public class WindowManager {
   var channel: MessageChannel;
   var monitor: EventMonitor?;
 
@@ -20,7 +20,14 @@ class WindowManager {
 
   private func onInit() {
     self.monitor = PassiveEventMonitor(mask: [.leftMouseDown, .leftMouseUp, .leftMouseDragged], handler: self.onUpdate)
+    self.channel.registerWindowChange(handler: self.setWindowRect)
     self.monitor!.start();
+  }
+    
+  func setWindowRect(rect: CGRect) {
+    let windowElement = AccessibilityElement.getWindowElementUnderCursor()
+    NSLog("RectWindowSet: \(rect)")
+    windowElement?.setFrame(rect)
   }
 
   func onWindowChangeEvent(key: String, event: String) {
@@ -86,8 +93,7 @@ class WindowManager {
           lastWindowIdAttempt = event.timestamp
         }
         if !windowMoving {
-          guard let currentRect = windowElement?.frame,
-            let windowId = windowId
+          guard let currentRect = windowElement?.frame
           else { return }
           if currentRect.size == initialWindowRect?.size {
             if currentRect.origin != initialWindowRect?.origin {
