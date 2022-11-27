@@ -42,3 +42,18 @@ extension CGRect {
         .init(origin: .init(x: origin.x, y: NSScreen.screens[0].frame.maxY - maxY), size: size)
     }
 }
+
+extension NSColor {
+
+    var hexString: String {
+        guard let rgbColor = usingColorSpaceName(NSColorSpaceName.calibratedRGB) else {
+            return "FFFFFF"
+        }
+        let red = Int(round(rgbColor.redComponent * 0xFF))
+        let green = Int(round(rgbColor.greenComponent * 0xFF))
+        let blue = Int(round(rgbColor.blueComponent * 0xFF))
+        let hexString = NSString(format: "#%02X%02X%02X", red, green, blue)
+        return hexString as String
+    }
+
+}

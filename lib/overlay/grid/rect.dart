@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:toolboard/shared/config/constants.dart';
+import 'package:toolboard/shared/store/helpers.dart';
+import 'package:toolboard/shared/store/settings.dart';
 
 class Rect extends StatefulWidget {
   final double? width;
@@ -9,19 +12,25 @@ class Rect extends StatefulWidget {
   State<Rect> createState() => _RectState();
 }
 
-var color = Colors.green;
-
 class _RectState extends State<Rect> {
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 200),
-      height: widget.height,
-      width: widget.width,
-      decoration: BoxDecoration(
-          border: Border.all(width: 2, color: color),
-          color: color.withOpacity(0.2),
-          borderRadius: BorderRadius.circular(10)),
+    return StoreBuilder<SettingsValue, SettingsStore>(
+      store: settingsStore,
+      builder: (context, value) {
+        var color = value.accentColor;
+        return AnimatedContainer(
+          duration: ANIMATION_DURATION,
+          height: widget.height,
+          width: widget.width,
+          decoration: BoxDecoration(
+              border: Border.all(
+                  width: WINDOW_PLACEHOLDER_BORDER_WIDTH, color: color),
+              color: color.withOpacity(0.2),
+              borderRadius:
+                  BorderRadius.circular(WINDOW_PLACEHOLDER_BORDER_RADIUS)),
+        );
+      },
     );
   }
 }

@@ -14,7 +14,7 @@ public class WindowManager {
   var initialWindowRect: CGRect?
 
   init(channel: MessageChannel?) {
-    self.channel = channel as! MessageChannel
+      self.channel = channel!
     self.onInit();
   }
 

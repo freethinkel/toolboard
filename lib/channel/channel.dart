@@ -28,6 +28,12 @@ class AppChannel {
     );
   }
 
+  Future<String> getCurrentAccentColor() {
+    return channel.invokeMethod('get_accent_color').then((value) {
+      return value as String;
+    });
+  }
+
   Future setWindowFrame(int windowId, RectData rect) {
     return channel.invokeMethod(
         "set_window_frame",

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:toolboard/channel/channel.dart';
-import 'package:toolboard/overlay/grid/rect.dart';
+import 'package:toolboard/shared/store/settings.dart';
 
 class WindowInfo {
   int id;
@@ -82,32 +82,78 @@ class _AreaCalculator {
   RectData? fromSnapArea(SnapArea area) {
     var rect = {
       SnapArea.full: RectData(
-          position: Offset(0, screen.topOffset),
-          size: Size(screen.rect.size.width, screen.rect.size.height)),
+          position: Offset(settingsStore.value.padding,
+              screen.topOffset + settingsStore.value.padding),
+          size: Size(screen.rect.size.width - settingsStore.value.padding * 2,
+              screen.rect.size.height - settingsStore.value.padding * 2)),
       SnapArea.left: RectData(
-        position: Offset(0, screen.topOffset),
-        size: Size(screen.rect.size.width / 2, screen.rect.size.height),
+        position: Offset(settingsStore.value.padding,
+            screen.topOffset + settingsStore.value.padding),
+        size: Size(
+            screen.rect.size.width / 2 -
+                settingsStore.value.gap / 2 -
+                settingsStore.value.padding,
+            screen.rect.size.height - settingsStore.value.padding),
       ),
       SnapArea.right: RectData(
-        position: Offset(screen.rect.size.width / 2, screen.topOffset),
-        size: Size(screen.rect.size.width / 2, screen.rect.size.height),
+        position: Offset(
+            screen.rect.size.width / 2 + settingsStore.value.gap / 2,
+            screen.topOffset + settingsStore.value.padding),
+        size: Size(
+            screen.rect.size.width / 2 -
+                settingsStore.value.gap / 2 -
+                settingsStore.value.padding,
+            screen.rect.size.height - settingsStore.value.padding * 2),
       ),
       SnapArea.topLeft: RectData(
-        position: Offset(0, screen.topOffset),
-        size: Size(screen.rect.size.width / 2, screen.rect.size.height / 2),
+        position: Offset(settingsStore.value.padding,
+            screen.topOffset + settingsStore.value.padding),
+        size: Size(
+            screen.rect.size.width / 2 -
+                settingsStore.value.padding -
+                settingsStore.value.gap / 2,
+            screen.rect.size.height / 2 -
+                settingsStore.value.padding -
+                settingsStore.value.gap / 2),
       ),
       SnapArea.topRight: RectData(
-        position: Offset(screen.rect.size.width / 2, screen.topOffset),
-        size: Size(screen.rect.size.width / 2, screen.rect.size.height / 2),
+        position: Offset(
+            screen.rect.size.width / 2 + settingsStore.value.gap / 2,
+            screen.topOffset + settingsStore.value.padding),
+        size: Size(
+            screen.rect.size.width / 2 -
+                settingsStore.value.padding -
+                settingsStore.value.gap / 2,
+            screen.rect.size.height / 2 -
+                settingsStore.value.padding -
+                settingsStore.value.gap / 2),
       ),
       SnapArea.bottomLeft: RectData(
-        position: Offset(0, screen.rect.size.height / 2 + screen.topOffset),
-        size: Size(screen.rect.size.width / 2, screen.rect.size.height / 2),
+        position: Offset(
+            settingsStore.value.padding,
+            screen.rect.size.height / 2 +
+                screen.topOffset +
+                settingsStore.value.gap / 2),
+        size: Size(
+            screen.rect.size.width / 2 -
+                settingsStore.value.padding -
+                settingsStore.value.gap / 2,
+            screen.rect.size.height / 2 -
+                settingsStore.value.padding -
+                settingsStore.value.gap / 2),
       ),
       SnapArea.bottomRight: RectData(
-        position: Offset(screen.rect.size.width / 2,
-            screen.rect.size.height / 2 + screen.topOffset),
-        size: Size(screen.rect.size.width / 2, screen.rect.size.height / 2),
+        position: Offset(
+            screen.rect.size.width / 2 + settingsStore.value.gap / 2,
+            (screen.rect.size.height / 2 + screen.topOffset) +
+                settingsStore.value.gap / 2),
+        size: Size(
+            screen.rect.size.width / 2 -
+                settingsStore.value.padding -
+                settingsStore.value.gap / 2,
+            screen.rect.size.height / 2 -
+                settingsStore.value.padding -
+                settingsStore.value.gap / 2),
       ),
     }[area];
 

@@ -90,6 +90,15 @@ class MessageChannel {
           result("error");
         }
       }
+        if (call.method == "get_accent_color") {
+            if #available(macOS 10.14, *) {
+                NSLog("COLOR: \(NSColor.controlAccentColor.hexString)");
+                result(NSColor.controlAccentColor.hexString);
+            } else {
+                result(nil)
+            }
+            
+        }
     })
   }
 }

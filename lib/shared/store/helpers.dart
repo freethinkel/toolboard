@@ -1,25 +1,27 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:toolboard/shared/store/settings.dart';
 
-class StreamBuilder<V, T extends Stream<V>> extends StatefulWidget {
-  final Function(BuildContext, V?) builder;
+class StoreBuilder<V, T extends Store<V>> extends StatefulWidget {
+  final Function(BuildContext, V) builder;
   final T store;
 
-  const StreamBuilder({required this.builder, required this.store, super.key});
+  const StoreBuilder({required this.builder, required this.store, super.key});
 
   @override
-  State<StreamBuilder> createState() => _StreamBuilderState<V, T>();
+  State<StoreBuilder> createState() => _StoreBuilderState<V, T>();
 }
 
-class _StreamBuilderState<V, T extends Stream<V>>
-    extends State<StreamBuilder<V, T>> {
+class _StoreBuilderState<V, T extends Store<V>>
+    extends State<StoreBuilder<V, T>> {
   late V _value;
-  late StreamSubscription<V> _subscription;
+  late Function() _unsubscribe;
 
   @override
   void initState() {
-    _subscription = widget.store.listen((event) {
+    _value = widget.store.value;
+    _unsubscribe = widget.store.subscribe((event) {
       setState(() {
         _value = event;
       });
@@ -29,12 +31,38 @@ class _StreamBuilderState<V, T extends Stream<V>>
 
   @override
   void dispose() {
-    _subscription.cancel();
+    _unsubscribe();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return widget.builder(context, _value);
+  }
+}
+
+class Store<T> {
+  T value;
+  List<Function(T)> _listeners = [];
+
+  Store({required this.value});
+
+  Function() subscribe(Function(T) cb) {
+    _listeners.add(cb);
+
+    return () {
+      _listeners = _listeners.where((el) => el != cb).toList();
+    };
+  }
+
+  next(T value) {
+    this.value = value;
+    _notify();
+  }
+
+  _notify() {
+    for (var cb in _listeners) {
+      cb(value);
+    }
   }
 }

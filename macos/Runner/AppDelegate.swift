@@ -25,7 +25,7 @@ class AppDelegate: FlutterAppDelegate {
     (self.controller as! CustomWindow).setKey(key: "statusbar");
     self.channels.append(MessageChannel.init(controller: controller))
     self.channels.append(MessageChannel.init(controller: mainFlutterWindow?.contentViewController as! FlutterViewController?, window: self.mainFlutterWindow))
-    popover.contentSize = NSSize(width: 360, height: 360)
+    popover.contentSize = NSSize(width: 250, height: 200)
     popover.contentViewController = self.controller
     statusBar = StatusBarController.init(popover)
     
