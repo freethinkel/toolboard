@@ -4,18 +4,17 @@ import 'package:flutter/services.dart';
 import 'package:toolboard/overlay/window_manager.dart';
 
 class AppChannel {
-  final _channelName = 'ru.freethinkel.toolboard/mindow';
+  final _channelName = 'ru.freethinkel.toolboard/window';
   late final channel = MethodChannel(_channelName);
+  List<Function(String, dynamic)> _listeners = [];
 
   static final instance = AppChannel();
 
   AppChannel();
 
-  Future<List<Map>> getScreens() {
-    return channel.invokeMethod('get_screens').then((value) {
-      return (value as List<dynamic>)
-          .map<Map>((item) => jsonDecode(item))
-          .toList();
+  Future<Map> getScreen() {
+    return channel.invokeMethod('get_current_screen').then((value) {
+      return jsonDecode(value);
     });
   }
 
@@ -44,9 +43,16 @@ class AppChannel {
   }
 
   listen(Function(String, dynamic) cb) {
+    _listeners.add(cb);
     channel.setMethodCallHandler((call) async {
-      cb(call.method, call.arguments);
+      for (var cb in _listeners) {
+        cb(call.method, call.arguments);
+      }
     });
+
+    return () {
+      _listeners = _listeners.where((el) => el != cb).toList();
+    };
   }
 
   Future<String> getKey() async {

@@ -24,9 +24,14 @@ public class WindowManager {
     self.monitor!.start();
   }
     
-  func setWindowRect(rect: CGRect) {
-    let windowElement = AccessibilityElement.getWindowElementUnderCursor()
-    NSLog("RectWindowSet: \(rect)")
+  func setWindowRect(rect: CGRect, id: Int?) {
+    var windowElement: AccessibilityElement?;
+    if (id != nil) {
+        windowElement = AccessibilityElement.getWindowFromId(id: CGWindowID.init(id!))
+    }
+    if (windowElement == nil) {
+      windowElement = AccessibilityElement.getWindowElementUnderCursor()
+    }
     windowElement?.setFrame(rect)
   }
 

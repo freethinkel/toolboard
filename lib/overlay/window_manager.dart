@@ -234,9 +234,8 @@ class WindowManager {
   }
 
   updateScreen() {
-    channel.getScreens().then((value) {
-      var firstScreen = value.first;
-      var screen = ScreenData.fromMap(firstScreen);
+    channel.getScreen().then((screenData) {
+      var screen = ScreenData.fromMap(screenData);
       calc.screen = screen;
       setCurrentWindowFrame(screen);
     });
@@ -256,7 +255,7 @@ class WindowManager {
         "on_mouse_up": () {
           if (currentSnapArea != null) {
             var rect = calc.fromSnapArea(currentSnapArea!);
-            if (rect != null) {
+            if (rect != null && _lastPoint!.window!.id != null) {
               setWindowFrame(
                 WindowInfo(id: _lastPoint!.window!.id, frame: rect.size),
                 rect.position,

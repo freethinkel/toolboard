@@ -39,11 +39,7 @@ class _QuitInfoState extends State<QuitInfo> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           buildText('Quit Toolboard'),
-          TBButton(
-              onClick: () {
-                print('test');
-              },
-              child: buildText('⌘ Q'))
+          TBButton(onClick: onExit, child: buildText('⌘ Q'))
           // buildText('⌘ Q'),
         ],
       ),

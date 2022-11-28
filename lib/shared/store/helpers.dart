@@ -1,7 +1,4 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:toolboard/shared/store/settings.dart';
 
 class StoreBuilder<V, T extends Store<V>> extends StatefulWidget {
   final Function(BuildContext, V) builder;

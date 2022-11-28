@@ -252,6 +252,13 @@ extension AccessibilityElement {
         return nil
     }
     
+    static func getWindowFromId(id: CGWindowID?) -> AccessibilityElement? {
+        if (id == nil) {
+            return nil;
+        }
+        return WindowUtil.getWindowList([id!]).uniqueMap { $0.pid }.compactMap { AccessibilityElement($0).windowElements }.first?.first
+    }
+    
     static func getAllWindowElements() -> [AccessibilityElement] {
         return WindowUtil.getWindowList().uniqueMap { $0.pid }.compactMap { AccessibilityElement($0).windowElements }.flatMap { $0 }
     }
