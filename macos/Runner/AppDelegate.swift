@@ -25,6 +25,17 @@ class AppDelegate: FlutterAppDelegate {
     }
   }
 
+  private func initChannelListeners() {
+    for channel in self.channels {
+      channel.registerStopWindowManager {
+        self.windowManager?.stopListen()
+      }
+      channel.registerStartWindowManager {
+        self.windowManager?.startListen()
+      }
+    }
+  }
+
   override func applicationDidFinishLaunching(_ aNotification: Notification) {
     let project = FlutterDartProject.init()
     self.controller = CustomWindow.init(project: project);
@@ -37,9 +48,13 @@ class AppDelegate: FlutterAppDelegate {
     
     let overlayChannel = self.channels.first {$0.controller?.key == "overlay"}
     self.windowManager = WindowManager.init(channel: overlayChannel);
+
+    self.initChannelListeners()
+
     if #available(macOS 10.14, *) {
       DistributedNotificationCenter.default.addObserver(self, selector: #selector(self.onUpdateAccentColor(_:)), name: NSNotification.Name(rawValue: "AppleColorPreferencesChangedNotification"), object: nil)
     }
+
     RegisterGeneratedPlugins(registry: self.controller as! CustomWindow)
     super.applicationDidFinishLaunching(aNotification)
   }

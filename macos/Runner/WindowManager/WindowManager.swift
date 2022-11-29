@@ -21,7 +21,14 @@ public class WindowManager {
   private func onInit() {
     self.monitor = PassiveEventMonitor(mask: [.leftMouseDown, .leftMouseUp, .leftMouseDragged], handler: self.onUpdate)
     self.channel.registerWindowChange(handler: self.setWindowRect)
-    self.monitor!.start();
+  }
+
+  func startListen() {
+      self.monitor!.start();
+  }
+
+  func stopListen() {
+      self.monitor!.stop();
   }
     
   func setWindowRect(rect: CGRect, id: Int?) {

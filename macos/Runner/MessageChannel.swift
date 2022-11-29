@@ -24,7 +24,10 @@ class MessageChannel {
   var channel: FlutterMethodChannel?
   var controller: CustomWindow?
   var window: NSWindow?
+
   private var onWindowChange: ((CGRect, Int?) -> Void)?
+  private var onWindowManagerStart: (() -> Void)?
+  private var onWindowManagerStop: (() -> Void)?
     
   init(controller: FlutterViewController?, window: NSWindow? = nil) {
     self.window = window;
@@ -40,6 +43,14 @@ class MessageChannel {
 
   func registerWindowChange(handler: @escaping (CGRect, Int?) -> Void) {
     self.onWindowChange = handler;
+  }
+
+  func registerStartWindowManager(handler: @escaping () -> Void) {
+    self.onWindowManagerStart = handler;
+  }
+
+  func registerStopWindowManager(handler: @escaping () -> Void) {
+    self.onWindowManagerStop = handler;
   }
 
   func onCurrentWindowChange(rect: CGRect) {
@@ -78,6 +89,12 @@ class MessageChannel {
         } catch {
           result("error")
         }
+      }
+      if (call.method == "stop_window_manager") {
+        self.onWindowManagerStop!()
+      }
+      if (call.method == "start_window_manager") {
+        self.onWindowManagerStart!()
       }
       if (call.method == "set_window_frame") {
         do {

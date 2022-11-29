@@ -93,7 +93,7 @@ class _AreaCalculator {
             screen.rect.size.width / 2 -
                 settingsStore.value.gap / 2 -
                 settingsStore.value.padding,
-            screen.rect.size.height - settingsStore.value.padding),
+            screen.rect.size.height - settingsStore.value.padding * 2),
       ),
       SnapArea.right: RectData(
         position: Offset(

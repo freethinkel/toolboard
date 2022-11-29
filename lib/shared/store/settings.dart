@@ -44,6 +44,10 @@ class SettingsStore extends Store<SettingsValue> {
       try {
         var data = instance.getString('settings');
         next(SettingsValue.fromMap(jsonDecode(data ?? '{}')));
+
+        if (value.windowManagerEnable) {
+          AppChannel.instance.startWindowManager();
+        }
       } catch (err) {
         //
       }
@@ -85,6 +89,11 @@ class SettingsStore extends Store<SettingsValue> {
 
   changeWindowManagerEnable(bool state) {
     value.windowManagerEnable = state;
+    if (state) {
+      AppChannel.instance.startWindowManager();
+    } else {
+      AppChannel.instance.stopWindowManager();
+    }
     next(value);
   }
 }

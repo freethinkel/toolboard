@@ -27,6 +27,14 @@ class AppChannel {
     );
   }
 
+  Future startWindowManager() {
+    return channel.invokeMethod('start_window_manager');
+  }
+
+  Future stopWindowManager() {
+    return channel.invokeMethod('stop_window_manager');
+  }
+
   Future<String> getCurrentAccentColor() {
     return channel.invokeMethod('get_accent_color').then((value) {
       return value as String;
