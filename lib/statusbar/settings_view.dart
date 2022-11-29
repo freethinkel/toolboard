@@ -24,14 +24,31 @@ class _SettingsViewState extends State<SettingsView> {
               Expanded(
                 child: Column(
                   children: [
-                    TextButton(onPressed: () {}, child: Text("adasdas")),
-                    TBSwitch(
-                      value: store.windowManagerEnable,
-                      onChange: (state) {
-                        settingsStore.changeWindowManagerEnable(state);
-                      },
-                      child: const Text("WindowManager"),
-                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Column(children: [
+                        TBSwitch(
+                          value: store.enableCaffeinate,
+                          onChange: (state) {
+                            settingsStore.changeCaffeinate(state);
+                          },
+                          child: const Text(
+                            "Caffeinate",
+                            style: TextStyle(fontSize: 13),
+                          ),
+                        ),
+                        TBSwitch(
+                          value: store.windowManagerEnable,
+                          onChange: (state) {
+                            settingsStore.changeWindowManagerEnable(state);
+                          },
+                          child: const Text(
+                            "Window Manager",
+                            style: TextStyle(fontSize: 13),
+                          ),
+                        ),
+                      ]),
+                    )
                   ],
                 ),
               ),

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:toolboard/overlay/window_manager.dart';
@@ -7,6 +8,7 @@ class AppChannel {
   final _channelName = 'ru.freethinkel.toolboard/window';
   late final channel = MethodChannel(_channelName);
   List<Function(String, dynamic)> _listeners = [];
+  List<Function> _exitListeners = [];
 
   static final instance = AppChannel();
 
@@ -61,6 +63,24 @@ class AppChannel {
     return () {
       _listeners = _listeners.where((el) => el != cb).toList();
     };
+  }
+
+  exitApp() {
+    for (var cb in _exitListeners) {
+      cb();
+    }
+    exit(0);
+  }
+
+  onExit(Function cb) {
+    _exitListeners.add(cb);
+    listen((key, _) {
+      if (key == 'on_exit') {
+        for (var el in _exitListeners) {
+          el();
+        }
+      }
+    });
   }
 
   Future<String> getKey() async {

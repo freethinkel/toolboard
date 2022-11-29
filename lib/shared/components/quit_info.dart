@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:toolboard/channel/channel.dart';
 import 'package:toolboard/shared/components/button.dart';
 
 class QuitInfo extends StatefulWidget {
@@ -22,7 +23,7 @@ class _QuitInfoState extends State<QuitInfo> {
   }
 
   void onExit() {
-    exit(0);
+    AppChannel.instance.exitApp();
   }
 
   @override
@@ -40,7 +41,6 @@ class _QuitInfoState extends State<QuitInfo> {
         children: [
           buildText('Quit Toolboard'),
           TBButton(onClick: onExit, child: buildText('⌘ Q'))
-          // buildText('⌘ Q'),
         ],
       ),
     );
