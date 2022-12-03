@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toolboard/shared/config/color.dart';
 import 'package:toolboard/shared/config/constants.dart';
 import 'package:toolboard/shared/services/caffeinate.dart';
+import 'package:toolboard/shared/services/config.service.dart';
 import 'package:toolboard/shared/store/helpers.dart';
 
 import '../../channel/channel.dart';
@@ -46,6 +47,7 @@ class SettingsValue {
 
 class SettingsStore extends Store<SettingsValue> {
   init() {
+    ConfigService.instance.getConfig();
     SharedPreferences.getInstance().then((instance) {
       try {
         var data = instance.getString('settings');

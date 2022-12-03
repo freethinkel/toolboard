@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:toolboard/overlay/grid/grid_manager.dart';
 import 'package:toolboard/shared/store/helpers.dart';
 import 'package:toolboard/shared/store/settings.dart';
@@ -8,7 +9,7 @@ class OverlayApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: StoreBuilder<SettingsValue, SettingsStore>(
         store: settingsStore,

@@ -3,16 +3,16 @@ import 'package:toolboard/shared/config/constants.dart';
 import 'package:toolboard/shared/store/helpers.dart';
 import 'package:toolboard/shared/store/settings.dart';
 
-class Rect extends StatefulWidget {
+class RectBox extends StatefulWidget {
   final double? width;
   final double? height;
-  const Rect({this.height, this.width, super.key});
+  const RectBox({this.height, this.width, super.key});
 
   @override
-  State<Rect> createState() => _RectState();
+  State<RectBox> createState() => _RectBoxState();
 }
 
-class _RectState extends State<Rect> {
+class _RectBoxState extends State<RectBox> {
   @override
   Widget build(BuildContext context) {
     return StoreBuilder<SettingsValue, SettingsStore>(

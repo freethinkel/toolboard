@@ -9,6 +9,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   shared_preferences: ^2.0.15
+  get: ^4.6.5
 dev_dependencies:
   flutter_launcher_icons: ^0.11.0
   flutter_test:
@@ -20,4 +21,4 @@ flutter:
 flutter_icons:
   macos:
     generate: true
-    image_path: "./assets/Logo.png"
+    image_path: './assets/Logo.png'

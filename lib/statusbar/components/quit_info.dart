@@ -1,8 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:toolboard/channel/channel.dart';
-import 'package:toolboard/shared/components/button.dart';
+import 'package:toolboard/statusbar/components/button.dart';
 
 class QuitInfo extends StatefulWidget {
   const QuitInfo({super.key});

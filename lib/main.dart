@@ -9,6 +9,7 @@ import 'overlay/overlay_app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   currentAppKey =
       (await AppChannel.instance.getKey().catchError((err) => '__none__'));
   var handler = ({

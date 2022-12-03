@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toolboard/shared/model/rect.dart';
 
 class WindowInfo {
   String processId;
@@ -19,27 +20,17 @@ class WindowInfo {
   }
 }
 
-class PositionInfo {
-  Offset offset;
-  Size size;
-
-  PositionInfo({
-    required this.offset,
-    required this.size,
-  });
-}
-
 class WindowFrameChangedEvent {
-  PositionInfo oldPosition;
-  PositionInfo newPosition;
+  RectEntry oldPosition;
+  RectEntry newPosition;
   WindowInfo app;
-  Offset mousePosion;
+  Offset mousePosition;
 
   WindowFrameChangedEvent({
     required this.app,
     required this.newPosition,
     required this.oldPosition,
-    required this.mousePosion,
+    required this.mousePosition,
   });
 
   static WindowFrameChangedEvent? fromMap(Map data) {
@@ -49,11 +40,11 @@ class WindowFrameChangedEvent {
         data['mouse_position']['x'],
         data['mouse_position']['y'],
       );
-      var oldPosition = PositionInfo(
+      var oldPosition = RectEntry(
         offset: Offset(data['old']['x'], data['old']['y']),
         size: Size(data['old']['width'], data['old']['height']),
       );
-      var newPosition = PositionInfo(
+      var newPosition = RectEntry(
         offset: Offset(data['new']['x'], data['new']['y']),
         size: Size(data['new']['width'], data['new']['height']),
       );
@@ -61,7 +52,7 @@ class WindowFrameChangedEvent {
         app: app,
         newPosition: oldPosition,
         oldPosition: newPosition,
-        mousePosion: mousePosition,
+        mousePosition: mousePosition,
       );
     } catch (err) {
       return null;

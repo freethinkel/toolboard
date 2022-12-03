@@ -2,13 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
-import 'package:toolboard/overlay/window_manager.dart';
+import 'package:toolboard/shared/model/rect.dart';
 
 class AppChannel {
   final _channelName = 'ru.freethinkel.toolboard/window';
   late final channel = MethodChannel(_channelName);
   List<Function(String, dynamic)> _listeners = [];
-  List<Function> _exitListeners = [];
+  final List<Function> _exitListeners = [];
 
   static final instance = AppChannel();
 
@@ -20,7 +20,7 @@ class AppChannel {
     });
   }
 
-  Future setCurrentWindowFrame(RectData rect) {
+  Future setCurrentWindowFrame(RectEntry rect) {
     return channel.invokeMethod(
       "set_current_window_frame",
       jsonEncode(
@@ -43,7 +43,7 @@ class AppChannel {
     });
   }
 
-  Future setWindowFrame(int windowId, RectData rect) {
+  Future setWindowFrame(int windowId, RectEntry rect) {
     return channel.invokeMethod(
         "set_window_frame",
         jsonEncode({
