@@ -5,8 +5,12 @@ class WindowInfo {
   String processId;
   String bundleId;
   String name;
-  WindowInfo(
-      {required this.processId, required this.bundleId, required this.name});
+
+  WindowInfo({
+    required this.processId,
+    required this.bundleId,
+    required this.name,
+  });
 
   static WindowInfo? fromMap(Map? data) {
     if (data != null) {

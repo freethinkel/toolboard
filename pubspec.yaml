@@ -10,6 +10,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   shared_preferences: ^2.0.15
   get: ^4.6.5
+  path: ^1.8.2
+  yaml: ^3.1.1
 dev_dependencies:
   flutter_launcher_icons: ^0.11.0
   flutter_test:

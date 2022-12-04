@@ -1,88 +1,91 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:toolboard/channel/channel.dart';
+import 'package:toolboard/shared/channel/app_channel.dart';
 import 'package:toolboard/overlay/window_manager/models.dart';
+import 'package:toolboard/shared/config/model.dart';
 import 'package:toolboard/shared/model/rect.dart';
-import 'package:toolboard/shared/store/settings.dart';
 
-class _AreaCalculator {
+class AreaCalculator {
   ScreenData screen;
-  _AreaCalculator({required this.screen});
+  AppConfig config;
+
+  AreaCalculator({required this.screen, required this.config});
+
   final sensitive = 0.1;
 
   RectEntry? fromSnapArea(SnapArea area) {
     var rect = {
       SnapArea.full: RectEntry(
-          offset: Offset(settingsStore.value.padding,
-              screen.topOffset + settingsStore.value.padding),
-          size: Size(screen.rect.size.width - settingsStore.value.padding * 2,
-              screen.rect.size.height - settingsStore.value.padding * 2)),
+          offset: Offset(
+              config.windowPadding, screen.topOffset + config.windowPadding),
+          size: Size(screen.rect.size.width - config.windowPadding * 2,
+              screen.rect.size.height - config.windowPadding * 2)),
       SnapArea.left: RectEntry(
-        offset: Offset(settingsStore.value.padding,
-            screen.topOffset + settingsStore.value.padding),
+        offset: Offset(
+            config.windowPadding, screen.topOffset + config.windowPadding),
         size: Size(
             screen.rect.size.width / 2 -
-                settingsStore.value.gap / 2 -
-                settingsStore.value.padding,
-            screen.rect.size.height - settingsStore.value.padding * 2),
+                config.windowGap / 2 -
+                config.windowPadding,
+            screen.rect.size.height - config.windowPadding * 2),
       ),
       SnapArea.right: RectEntry(
-        offset: Offset(screen.rect.size.width / 2 + settingsStore.value.gap / 2,
-            screen.topOffset + settingsStore.value.padding),
+        offset: Offset(screen.rect.size.width / 2 + config.windowGap / 2,
+            screen.topOffset + config.windowPadding),
         size: Size(
             screen.rect.size.width / 2 -
-                settingsStore.value.gap / 2 -
-                settingsStore.value.padding,
-            screen.rect.size.height - settingsStore.value.padding * 2),
+                config.windowGap / 2 -
+                config.windowPadding,
+            screen.rect.size.height - config.windowPadding * 2),
       ),
       SnapArea.topLeft: RectEntry(
-        offset: Offset(settingsStore.value.padding,
-            screen.topOffset + settingsStore.value.padding),
+        offset: Offset(
+            config.windowPadding, screen.topOffset + config.windowPadding),
         size: Size(
             screen.rect.size.width / 2 -
-                settingsStore.value.padding -
-                settingsStore.value.gap / 2,
+                config.windowPadding -
+                config.windowGap / 2,
             screen.rect.size.height / 2 -
-                settingsStore.value.padding -
-                settingsStore.value.gap / 2),
+                config.windowPadding -
+                config.windowGap / 2),
       ),
       SnapArea.topRight: RectEntry(
-        offset: Offset(screen.rect.size.width / 2 + settingsStore.value.gap / 2,
-            screen.topOffset + settingsStore.value.padding),
+        offset: Offset(screen.rect.size.width / 2 + config.windowGap / 2,
+            screen.topOffset + config.windowPadding),
         size: Size(
             screen.rect.size.width / 2 -
-                settingsStore.value.padding -
-                settingsStore.value.gap / 2,
+                config.windowPadding -
+                config.windowGap / 2,
             screen.rect.size.height / 2 -
-                settingsStore.value.padding -
-                settingsStore.value.gap / 2),
+                config.windowPadding -
+                config.windowGap / 2),
       ),
       SnapArea.bottomLeft: RectEntry(
         offset: Offset(
-            settingsStore.value.padding,
+            config.windowPadding,
             screen.rect.size.height / 2 +
                 screen.topOffset +
-                settingsStore.value.gap / 2),
+                config.windowGap / 2),
         size: Size(
             screen.rect.size.width / 2 -
-                settingsStore.value.padding -
-                settingsStore.value.gap / 2,
+                config.windowPadding -
+                config.windowGap / 2,
             screen.rect.size.height / 2 -
-                settingsStore.value.padding -
-                settingsStore.value.gap / 2),
+                config.windowPadding -
+                config.windowGap / 2),
       ),
       SnapArea.bottomRight: RectEntry(
         offset: Offset(
-            screen.rect.size.width / 2 + settingsStore.value.gap / 2,
+            screen.rect.size.width / 2 + config.windowGap / 2,
             (screen.rect.size.height / 2 + screen.topOffset) +
-                settingsStore.value.gap / 2),
+                config.windowGap / 2),
         size: Size(
             screen.rect.size.width / 2 -
-                settingsStore.value.padding -
-                settingsStore.value.gap / 2,
+                config.windowPadding -
+                config.windowGap / 2,
             screen.rect.size.height / 2 -
-                settingsStore.value.padding -
-                settingsStore.value.gap / 2),
+                config.windowPadding -
+                config.windowGap / 2),
       ),
     }[area];
 
@@ -132,15 +135,8 @@ class _AreaCalculator {
 
 class WindowManager {
   final AppChannel channel;
-  final calc = _AreaCalculator(
-    screen: ScreenData(
-      topOffset: 0,
-      rect: RectEntry(
-        size: const Size(0, 0),
-        offset: const Offset(0, 0),
-      ),
-    ),
-  );
+
+  AreaCalculator calc;
   final Function(SnapArea?) onMove;
   final Function(SnapArea?) onDone;
 
@@ -148,6 +144,7 @@ class WindowManager {
   SnapArea? currentSnapArea;
 
   WindowManager({
+    required this.calc,
     required this.channel,
     required this.onMove,
     required this.onDone,

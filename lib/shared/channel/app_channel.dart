@@ -38,9 +38,9 @@ class AppChannel {
   }
 
   Future<String> getCurrentAccentColor() {
-    return channel.invokeMethod('get_accent_color').then((value) {
-      return value as String;
-    });
+    return channel
+        .invokeMethod('get_accent_color')
+        .then((value) => value as String);
   }
 
   Future setWindowFrame(int windowId, RectEntry rect) {
@@ -52,7 +52,7 @@ class AppChannel {
         }));
   }
 
-  listen(Function(String, dynamic) cb) {
+  Function() listen(Function(String, dynamic) cb) {
     _listeners.add(cb);
     channel.setMethodCallHandler((call) async {
       for (var cb in _listeners) {

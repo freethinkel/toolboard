@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:toolboard/shared/config/constants.dart';
-import 'package:toolboard/shared/store/helpers.dart';
-import 'package:toolboard/shared/store/settings.dart';
+import 'package:toolboard/shared/controllers/settings.controller.dart';
 
 class RectBox extends StatefulWidget {
   final double? width;
@@ -13,26 +13,23 @@ class RectBox extends StatefulWidget {
 }
 
 class _RectBoxState extends State<RectBox> {
+  final controller = Get.put(SettingsController());
+
   @override
   Widget build(BuildContext context) {
-    return StoreBuilder<SettingsValue, SettingsStore>(
-      store: settingsStore,
-      builder: (context, store) {
-        return AnimatedContainer(
-          duration: ANIMATION_DURATION,
-          height: widget.height,
-          width: widget.width,
-          decoration: BoxDecoration(
-            border: Border.all(
-              width: WINDOW_PLACEHOLDER_BORDER_WIDTH,
-              color: store.accentColor,
-            ),
-            color: store.accentColor.withOpacity(0.2),
-            borderRadius:
-                BorderRadius.circular(WINDOW_PLACEHOLDER_BORDER_RADIUS),
-          ),
-        );
-      },
+    return AnimatedContainer(
+      duration: ANIMATION_DURATION,
+      height: widget.height,
+      width: widget.width,
+      decoration: BoxDecoration(
+        border: Border.all(
+          width: controller.config.value.borderWidth,
+          color: Theme.of(context).primaryColor,
+        ),
+        color: Theme.of(context).primaryColor.withOpacity(0.2),
+        borderRadius:
+            BorderRadius.circular(controller.config.value.borderRadius),
+      ),
     );
   }
 }

@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:toolboard/channel/channel.dart';
+import 'package:toolboard/shared/channel/app_channel.dart';
 import 'package:toolboard/shared/config/constants.dart';
-import 'package:toolboard/shared/store/settings.dart';
 import 'package:toolboard/statusbar/statusbar_app.dart';
 
 import 'overlay/overlay_app.dart';
@@ -16,8 +15,6 @@ void main() async {
     'overlay': () => runApp(const OverlayApp()),
     'statusbar': () => runApp(const StatusbarApp())
   })[currentAppKey];
-
-  settingsStore.init();
 
   if (handler != null) {
     handler();

@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:toolboard/shared/controllers/settings.controller.dart';
 import 'package:toolboard/statusbar/components/quit_info.dart';
 import 'package:toolboard/statusbar/components/switch.dart';
-import 'package:toolboard/shared/store/helpers.dart';
-import 'package:toolboard/shared/store/settings.dart';
 
 class SettingsView extends StatefulWidget {
   const SettingsView({super.key});
@@ -13,11 +13,12 @@ class SettingsView extends StatefulWidget {
 }
 
 class _SettingsViewState extends State<SettingsView> {
+  final controller = Get.put(SettingsController());
+
   @override
   Widget build(BuildContext context) {
-    return StoreBuilder<SettingsValue, SettingsStore>(
-      store: settingsStore,
-      builder: (context, store) => Padding(
+    return Obx(
+      () => Padding(
         padding: EdgeInsets.zero,
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -29,9 +30,9 @@ class _SettingsViewState extends State<SettingsView> {
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Column(children: [
                         TBSwitch(
-                          value: store.enableCaffeinate,
+                          value: controller.caffeinateEnabled.value,
                           onChange: (state) {
-                            settingsStore.changeCaffeinate(state);
+                            controller.caffeinateEnabled.value = state;
                           },
                           child: const Text(
                             "Caffeinate",
@@ -39,9 +40,9 @@ class _SettingsViewState extends State<SettingsView> {
                           ),
                         ),
                         TBSwitch(
-                          value: store.windowManagerEnable,
+                          value: controller.windowManagerEnabled.value,
                           onChange: (state) {
-                            settingsStore.changeWindowManagerEnable(state);
+                            controller.windowManagerEnabled.value = state;
                           },
                           child: const Text(
                             "Window Manager",
