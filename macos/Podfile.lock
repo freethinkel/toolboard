@@ -1,11 +1,17 @@
 PODS:
+  - AXSwift (0.3.1)
   - FlutterMacOS (1.0.0)
   - shared_preferences_macos (0.0.1):
     - FlutterMacOS
 
 DEPENDENCIES:
+  - AXSwift (~> 0.3.0)
   - FlutterMacOS (from `Flutter/ephemeral`)
   - shared_preferences_macos (from `Flutter/ephemeral/.symlinks/plugins/shared_preferences_macos/macos`)
+
+SPEC REPOS:
+  trunk:
+    - AXSwift
 
 EXTERNAL SOURCES:
   FlutterMacOS:
@@ -14,9 +20,10 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/shared_preferences_macos/macos
 
 SPEC CHECKSUMS:
+  AXSwift: 24508e48dd103399d5e495201a8157a663029b92
   FlutterMacOS: ae6af50a8ea7d6103d888583d46bd8328a7e9811
   shared_preferences_macos: a64dc611287ed6cbe28fd1297898db1336975727
 
-PODFILE CHECKSUM: 6eac6b3292e5142cfc23bdeb71848a40ec51c14c
+PODFILE CHECKSUM: 5b1c47a4368d99549807a5594258fba18e0cf02c
 
 COCOAPODS: 1.11.3
