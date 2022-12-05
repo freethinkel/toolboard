@@ -20,7 +20,11 @@ jobs:
           architecture: x64
       - run: flutter config --enable-macos-desktop
       - run: flutter build macos --release
-      - run: apk add nodejs npm
+
+      - name: Use Nodejs for create dmg
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.17
       - run: npx appdmg ./create-dmg.json ./build/macos/Build/Products/Release/Toolboard.dmg
 
       - name: Create Github Release
