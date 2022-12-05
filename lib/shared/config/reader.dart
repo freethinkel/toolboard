@@ -4,7 +4,7 @@ import 'package:yaml/yaml.dart';
 
 class ConfigReader {
   final _locations = [
-    join(Platform.environment['HOME']!, 'toolboard.yml'),
+    join(Platform.environment['HOME']!, '.toolboard.yml'),
     join(Platform.environment['HOME']!, '.config', 'toolboard', 'config.yml')
   ];
 
