@@ -1,19 +1,23 @@
 name: Release
 on:
   push:
-    branch: 
+    branches:
       - release
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [macos-10.15]
+    runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          architecture: x64
+          architecture: arm64
       - run: flutter config --enable-macos-desktop
       - run: flutter build macos
       - run: apk add nodejs npm
@@ -22,10 +26,10 @@ jobs:
       - name: Create Github Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "build/macos/Build/Products/Release/*.dmg"
+          artifacts: 'build/macos/Build/Products/Release/*.dmg'
           token: ${{ secrets.PERSONAL_RELEASE_TOKEN }}
 
-      - name: Save APPBUNDLE to Artifacts
+      - name: Save build to Artifacts
         uses: actions/upload-artifact@v2
         with:
           name: DMG
