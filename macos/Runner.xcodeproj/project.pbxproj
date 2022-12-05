@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -30,7 +30,6 @@
 		C6049F8C292FCA470041F46A /* AccessibilityElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6049F8B292FCA470041F46A /* AccessibilityElement.swift */; };
 		C6049F8E292FCA9A0041F46A /* AXExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6049F8D292FCA9A0041F46A /* AXExtension.swift */; };
 		C6049F91292FCC820041F46A /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6049F90292FCC820041F46A /* Config.swift */; };
-		C63419D0292BDBAA007BE846 /* AXSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C63419CF292BDBAA007BE846 /* AXSwift */; };
 		C6362512292FBCFF00F64FEC /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6362511292FBCFF00F64FEC /* EventMonitor.swift */; };
 		C6362514292FBDAC00F64FEC /* RunLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6362513292FBDAC00F64FEC /* RunLoop.swift */; };
 		C6362517292FBE0400F64FEC /* CUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6362516292FBE0400F64FEC /* CUtil.swift */; };
@@ -109,7 +108,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C63419D0292BDBAA007BE846 /* AXSwift in Frameworks */,
 				5F98FCEFD36ABAB74C934100 /* Pods_Runner.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -261,7 +259,6 @@
 			);
 			name = Runner;
 			packageProductDependencies = (
-				C63419CF292BDBAA007BE846 /* AXSwift */,
 			);
 			productName = Runner;
 			productReference = 33CC10ED2044A3C60003C045 /* toolboard.app */;
@@ -303,7 +300,6 @@
 			);
 			mainGroup = 33CC10E42044A3C60003C045;
 			packageReferences = (
-				C63419CE292BDBAA007BE846 /* XCRemoteSwiftPackageReference "AXSwift" */,
 			);
 			productRefGroup = 33CC10EE2044A3C60003C045 /* Products */;
 			projectDirPath = "";
@@ -730,25 +726,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		C63419CE292BDBAA007BE846 /* XCRemoteSwiftPackageReference "AXSwift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/tmandry/AXSwift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.3.2;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		C63419CF292BDBAA007BE846 /* AXSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C63419CE292BDBAA007BE846 /* XCRemoteSwiftPackageReference "AXSwift" */;
-			productName = AXSwift;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 33CC10E52044A3C60003C045 /* Project object */;
 }
