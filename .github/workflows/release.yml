@@ -56,6 +56,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./build/macos/Build/Products/Release
+          asset_path: ./build/macos/Build/Products/Release/Toolboard.dmg
           asset_name: Toolboard.dmg
           asset_content_type: application/octet-stream
