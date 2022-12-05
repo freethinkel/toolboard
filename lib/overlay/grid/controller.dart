@@ -19,7 +19,8 @@ class GridController extends GetxController {
     calc: AreaCalculator(
       config: settingsController.config.value,
       screen: ScreenData(
-        topOffset: 0,
+        heightDiff: 0,
+        offsetTop: 0,
         rect: RectEntry(
           size: const Size(0, 0),
           offset: const Offset(0, 0),
@@ -44,8 +45,14 @@ class GridController extends GetxController {
     if (area != null) {
       var rect = _windowManager.calc.fromSnapArea(area);
       if (rect?.offset != null) {
-        rect!.offset = Offset(rect.offset.dx,
-            rect.offset.dy - _windowManager.calc.screen.topOffset);
+        // print(_windowManager.calc.screen.rect.offset);
+        // print(_windowManager.calc.screen.heightDiff);
+        // // rect!.offset = Offset(rect.offset.dx,
+        // //     rect.offset.dy - _windowManager.calc.screen.topOffset);
+        rect!.offset = Offset(
+          rect.offset.dx - _windowManager.calc.screen.rect.offset.dx,
+          rect.offset.dy - _windowManager.calc.screen.rect.offset.dy,
+        );
       }
       return rect;
     }

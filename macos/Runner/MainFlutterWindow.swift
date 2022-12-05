@@ -7,8 +7,13 @@ class MainFlutterWindow: NSWindow {
     let flutterViewController = CustomWindow.init();
     flutterViewController.setKey(key: "overlay")
     self.contentViewController = flutterViewController
-    let visibleFrame = NSScreen.main!.visibleFrame;
-    self.setFrame(visibleFrame, display: true, animate: true)
+      
+    let mouseLocation = NSEvent.mouseLocation
+    let screens = NSScreen.screens
+    let screen = screens.first { NSMouseInRect(mouseLocation, $0.frame, false) }
+      
+    let visibleFrame = screen!.visibleFrame;
+    self.setFrame(visibleFrame, display: true)
     
     self.isOpaque = true;
     self.styleMask = .fullSizeContentView

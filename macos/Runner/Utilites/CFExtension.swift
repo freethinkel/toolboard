@@ -25,4 +25,3 @@ extension CFDictionary {
         return CGRect(dictionaryRepresentation: self)
     }
 }
-

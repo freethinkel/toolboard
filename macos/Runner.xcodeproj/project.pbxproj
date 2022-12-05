@@ -37,6 +37,7 @@
 		C63D9991292B4BED00324715 /* StatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63D9990292B4BED00324715 /* StatusBarController.swift */; };
 		C6441E1A292FCE13005726E9 /* WindowUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6441E19292FCE13005726E9 /* WindowUtil.swift */; };
 		C6441E1C292FCE96005726E9 /* CFExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6441E1B292FCE96005726E9 /* CFExtension.swift */; };
+		C692E10B293CE5F1002CCD30 /* ScreenDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C692E10A293CE5F1002CCD30 /* ScreenDetection.swift */; };
 		C69F8201292B4D34003ED9AB /* CustomWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69F8200292B4D34003ED9AB /* CustomWindow.swift */; };
 		C6A298D9292CF89F000CF278 /* MessageChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A298D8292CF89F000CF278 /* MessageChannel.swift */; };
 		C6C92E302930C1EA00771FB1 /* WindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C92E2F2930C1EA00771FB1 /* WindowManager.swift */; };
@@ -96,6 +97,7 @@
 		C63D9990292B4BED00324715 /* StatusBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
 		C6441E19292FCE13005726E9 /* WindowUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowUtil.swift; sourceTree = "<group>"; };
 		C6441E1B292FCE96005726E9 /* CFExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFExtension.swift; sourceTree = "<group>"; };
+		C692E10A293CE5F1002CCD30 /* ScreenDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenDetection.swift; sourceTree = "<group>"; };
 		C69F8200292B4D34003ED9AB /* CustomWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWindow.swift; sourceTree = "<group>"; };
 		C6A298D3292CE6F3000CF278 /* RunnerProfile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RunnerProfile.entitlements; sourceTree = "<group>"; };
 		C6A298D8292CF89F000CF278 /* MessageChannel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageChannel.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				C6049F8D292FCA9A0041F46A /* AXExtension.swift */,
 				C6049F90292FCC820041F46A /* Config.swift */,
 				C6C92E2F2930C1EA00771FB1 /* WindowManager.swift */,
+				C692E10A293CE5F1002CCD30 /* ScreenDetection.swift */,
 			);
 			path = WindowManager;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 				C6049F8E292FCA9A0041F46A /* AXExtension.swift in Sources */,
 				C6362514292FBDAC00F64FEC /* RunLoop.swift in Sources */,
 				C6C92E302930C1EA00771FB1 /* WindowManager.swift in Sources */,
+				C692E10B293CE5F1002CCD30 /* ScreenDetection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

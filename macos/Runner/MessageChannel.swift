@@ -56,6 +56,33 @@ class MessageChannel {
   func onCurrentWindowChange(rect: CGRect) {
     self.window?.setFrame(rect, display: true);
   }
+    
+  func updateScreen(screen: NSScreen) {
+      self.sendEvent(key: "update_screen", payload: self.screenToJson(screen: screen))
+  }
+    
+  private func screenToJson(screen: NSScreen) -> String {
+    return """
+    {
+      "position": {
+        "x": \(screen.visibleFrame.origin.x),
+        "y": \(screen.visibleFrame.origin.y),
+        "offset_top": \(screen.frame.maxY - screen.visibleFrame.maxY),
+        "height_diff": \(screen.frame.height - screen.visibleFrame.height)
+      },
+      "size": {
+        "width": \(screen.visibleFrame.size.width),
+        "height": \(screen.visibleFrame.size.height)
+      }
+    }
+    """
+  }
+    
+  private func getCurrentScreen() -> NSScreen? {
+    let mouseLocation = NSEvent.mouseLocation
+    let screens = NSScreen.screens
+    return screens.first { NSMouseInRect(mouseLocation, $0.frame, false) }
+  }
 
   private func registerEvents() {
     self.channel!.setMethodCallHandler({
@@ -64,21 +91,8 @@ class MessageChannel {
         result(self.controller!.key)
       }
       if (call.method == "get_current_screen") {
-        let screen = NSScreen.main!;
-        result("""
-        {
-          "position": {
-            "x": \(screen.visibleFrame.origin.x),
-            "y": \(screen.visibleFrame.origin.y),
-            "top_offset": \(screen.frame.height - screen.visibleFrame.height - screen.visibleFrame.origin.y)
-          },
-          "size": {
-            "width": \(screen.visibleFrame.size.width),
-            "height": \(screen.visibleFrame.size.height)
-          }
-        }
-        """)
-        result([])
+          let screen = self.getCurrentScreen()!
+          result(self.screenToJson(screen: screen))
       }
       if (call.method == "set_current_window_frame") {
         do {

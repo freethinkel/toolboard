@@ -12,6 +12,7 @@ public class WindowManager {
   var lastWindowIdAttempt: TimeInterval?
   var windowIdAttempt: Int = 0
   var initialWindowRect: CGRect?
+  var prevScreen: NSScreen?
 
   init(channel: MessageChannel?) {
       self.channel = channel!
@@ -39,7 +40,7 @@ public class WindowManager {
     if (windowElement == nil) {
       windowElement = AccessibilityElement.getWindowElementUnderCursor()
     }
-    windowElement?.setFrame(rect)
+      windowElement?.setFrame(rect)
   }
 
   func onWindowChangeEvent(key: String, event: String) {
@@ -60,8 +61,28 @@ public class WindowManager {
     }
     return "null"
   }
+
+  private func getCurrentScreen() -> NSScreen? {
+    let mouseLocation = NSEvent.mouseLocation
+    let screens = NSScreen.screens
+    return screens.first { NSMouseInRect(mouseLocation, $0.frame, false) }
+  }
+
+  private func updateScreen() {
+    let screen = self.getCurrentScreen()!;
+    self.channel.updateScreen(screen: screen);
+  }
+
     
   func onUpdate(event: NSEvent) {
+    let screen = getCurrentScreen()
+
+    if (screen?.visibleFrame.origin != prevScreen?.visibleFrame.origin || screen?.visibleFrame.size != prevScreen?.visibleFrame.size) {
+      self.updateScreen();
+    }
+
+    prevScreen = screen;
+
     switch event.type {
       case .leftMouseDown:
         windowElement = AccessibilityElement.getWindowElementUnderCursor()

@@ -16,13 +16,13 @@ class AreaCalculator {
   RectEntry? fromSnapArea(SnapArea area) {
     var rect = {
       SnapArea.full: RectEntry(
-          offset: Offset(
-              config.windowPadding, screen.topOffset + config.windowPadding),
+          offset: Offset(screen.rect.offset.dx + config.windowPadding,
+              screen.rect.offset.dy + config.windowPadding),
           size: Size(screen.rect.size.width - config.windowPadding * 2,
               screen.rect.size.height - config.windowPadding * 2)),
       SnapArea.left: RectEntry(
-        offset: Offset(
-            config.windowPadding, screen.topOffset + config.windowPadding),
+        offset: Offset(screen.rect.offset.dx + config.windowPadding,
+            screen.rect.offset.dy + config.windowPadding),
         size: Size(
             screen.rect.size.width / 2 -
                 config.windowGap / 2 -
@@ -30,8 +30,10 @@ class AreaCalculator {
             screen.rect.size.height - config.windowPadding * 2),
       ),
       SnapArea.right: RectEntry(
-        offset: Offset(screen.rect.size.width / 2 + config.windowGap / 2,
-            screen.topOffset + config.windowPadding),
+        offset: Offset(
+            screen.rect.offset.dx +
+                (screen.rect.size.width / 2 + config.windowGap / 2),
+            screen.rect.offset.dy + (config.windowPadding)),
         size: Size(
             screen.rect.size.width / 2 -
                 config.windowGap / 2 -
@@ -39,8 +41,8 @@ class AreaCalculator {
             screen.rect.size.height - config.windowPadding * 2),
       ),
       SnapArea.topLeft: RectEntry(
-        offset: Offset(
-            config.windowPadding, screen.topOffset + config.windowPadding),
+        offset: Offset(screen.rect.offset.dx + config.windowPadding,
+            screen.rect.offset.dy + config.windowPadding),
         size: Size(
             screen.rect.size.width / 2 -
                 config.windowPadding -
@@ -50,8 +52,11 @@ class AreaCalculator {
                 config.windowGap / 2),
       ),
       SnapArea.topRight: RectEntry(
-        offset: Offset(screen.rect.size.width / 2 + config.windowGap / 2,
-            screen.topOffset + config.windowPadding),
+        offset: Offset(
+            screen.rect.offset.dx +
+                screen.rect.size.width / 2 +
+                config.windowGap / 2,
+            screen.rect.offset.dy + config.windowPadding),
         size: Size(
             screen.rect.size.width / 2 -
                 config.windowPadding -
@@ -62,9 +67,9 @@ class AreaCalculator {
       ),
       SnapArea.bottomLeft: RectEntry(
         offset: Offset(
-            config.windowPadding,
-            screen.rect.size.height / 2 +
-                screen.topOffset +
+            screen.rect.offset.dx + config.windowPadding,
+            screen.rect.offset.dy +
+                screen.rect.size.height / 2 +
                 config.windowGap / 2),
         size: Size(
             screen.rect.size.width / 2 -
@@ -76,8 +81,10 @@ class AreaCalculator {
       ),
       SnapArea.bottomRight: RectEntry(
         offset: Offset(
-            screen.rect.size.width / 2 + config.windowGap / 2,
-            (screen.rect.size.height / 2 + screen.topOffset) +
+            screen.rect.offset.dx +
+                (screen.rect.size.width / 2 + config.windowGap / 2),
+            screen.rect.offset.dy +
+                (screen.rect.size.height / 2) +
                 config.windowGap / 2),
         size: Size(
             screen.rect.size.width / 2 -
@@ -97,36 +104,52 @@ class AreaCalculator {
       return null;
     }
     if (event.position.dx >
-            (screen.rect.size.width - screen.rect.size.width * sensitive) &&
+            screen.rect.offset.dx +
+                (screen.rect.size.width - screen.rect.size.width * sensitive) &&
         event.position.dy >
-            (screen.rect.size.height - screen.rect.size.height * sensitive)) {
+            screen.rect.offset.dy +
+                (screen.rect.size.height -
+                    screen.rect.size.height * sensitive)) {
       return SnapArea.bottomRight;
     }
-    if (event.position.dx < screen.rect.size.width * sensitive &&
+    if (event.position.dx <
+            screen.rect.offset.dx + screen.rect.size.width * sensitive &&
         event.position.dy >
-            (screen.rect.size.height - screen.rect.size.height * sensitive)) {
+            screen.rect.offset.dy +
+                (screen.rect.size.height -
+                    screen.rect.size.height * sensitive)) {
       return SnapArea.bottomLeft;
     }
     if (event.position.dx >
-            (screen.rect.size.width - screen.rect.size.width * sensitive) &&
-        event.position.dy < screen.rect.size.height * sensitive) {
+            screen.rect.offset.dx +
+                (screen.rect.size.width - screen.rect.size.width * sensitive) &&
+        event.position.dy <
+            screen.rect.offset.dy + screen.rect.size.height * sensitive) {
       return SnapArea.topRight;
     }
-    if (event.position.dx < screen.rect.size.width * sensitive &&
-        event.position.dy < screen.rect.size.height * sensitive) {
+    if (event.position.dx <
+            screen.rect.offset.dx + screen.rect.size.width * sensitive &&
+        event.position.dy <
+            screen.rect.offset.dy + screen.rect.size.height * sensitive) {
       return SnapArea.topLeft;
     }
-    if (event.position.dx < screen.rect.size.width * sensitive) {
+    if (event.position.dx <
+        screen.rect.offset.dx + screen.rect.size.width * sensitive) {
       return SnapArea.left;
     }
     if (event.position.dx >
-        (screen.rect.size.width - screen.rect.size.width * sensitive)) {
+        screen.rect.offset.dx +
+            (screen.rect.size.width - screen.rect.size.width * sensitive)) {
       return SnapArea.right;
     }
-    if (event.position.dy < (screen.rect.size.height * sensitive) &&
-        event.position.dx > (screen.rect.size.width * sensitive) &&
+    if (event.position.dy <
+            screen.rect.offset.dy + (screen.rect.size.height * sensitive) &&
+        event.position.dx >
+            screen.rect.offset.dx + (screen.rect.size.width * sensitive) &&
         event.position.dx <
-            (screen.rect.size.width - (screen.rect.size.width * sensitive))) {
+            screen.rect.offset.dx +
+                (screen.rect.size.width -
+                    (screen.rect.size.width * sensitive))) {
       return SnapArea.full;
     }
     return null;
@@ -159,16 +182,17 @@ class WindowManager {
         window.id, RectEntry(offset: offset, size: window.frame));
   }
 
-  void updateScreen() {
-    channel.getScreen().then((screenData) {
-      var screen = ScreenData.fromMap(screenData);
-      calc.screen = screen;
-      setCurrentWindowFrame(screen);
-    });
+  void updateScreen(ScreenData screen) {
+    calc.screen = screen;
+    setCurrentWindowFrame(screen);
   }
 
   void listen() {
-    updateScreen();
+    channel.getScreen().then((screenData) {
+      var screen = ScreenData.fromMap(screenData);
+      updateScreen(screen);
+    });
+
     channel.listen((key, payload) {
       var handler = {
         "on_mouse_down": () {},
@@ -178,10 +202,19 @@ class WindowManager {
           currentSnapArea = calc.fromMouseEvent(_lastPoint!);
           onMove(currentSnapArea);
         },
+        "update_screen": () {
+          final screen = ScreenData.fromMap(jsonDecode(payload));
+          updateScreen(screen);
+        },
         "on_mouse_up": () {
           if (currentSnapArea != null) {
             var rect = calc.fromSnapArea(currentSnapArea!);
             if (rect != null && _lastPoint?.window?.id != null) {
+              rect.offset = Offset(
+                  rect.offset.dx,
+                  rect.offset.dy -
+                      calc.screen.rect.offset.dy +
+                      calc.screen.offsetTop);
               setWindowFrame(
                 WindowInfo(id: _lastPoint!.window!.id, frame: rect.size),
                 rect.offset,

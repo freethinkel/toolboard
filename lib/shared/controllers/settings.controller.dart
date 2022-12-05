@@ -18,6 +18,10 @@ class SettingsController extends GetxController {
 
   @override
   void onInit() {
+    if (currentAppKey == 'statusbar') {
+      _statusBarListeners();
+    }
+
     SharedPreferences.getInstance().then((instance) {
       windowManagerEnabled.value = instance.getBool('window_manager_enabled') ??
           windowManagerEnabled.value;
@@ -44,9 +48,6 @@ class SettingsController extends GetxController {
         _setColor(payload);
       }
     }));
-    if (currentAppKey == 'statusbar') {
-      _statusBarListeners();
-    }
     super.onInit();
   }
 

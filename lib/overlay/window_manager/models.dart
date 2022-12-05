@@ -15,14 +15,17 @@ class WindowInfo {
 }
 
 class ScreenData {
-  double topOffset;
+  double heightDiff;
+  double offsetTop;
   RectEntry rect;
 
-  ScreenData({required this.topOffset, required this.rect});
+  ScreenData(
+      {required this.heightDiff, required this.offsetTop, required this.rect});
 
   static ScreenData fromMap(Map data) {
     return ScreenData(
-        topOffset: data['position']['top_offset'],
+        heightDiff: data['position']['height_diff'],
+        offsetTop: data['position']['offset_top'],
         rect: RectEntry.fromMap(data));
   }
 }
