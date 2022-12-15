@@ -1,3 +1,4 @@
+Deprecated use [new version](https://github.com/freethinkel/toolbox)
 # Toolboard for MacOS
 
 ## Features
